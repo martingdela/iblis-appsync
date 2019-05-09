@@ -21,16 +21,7 @@ const promisify = foo => new Promise((resolve, reject) => {
     } else {
       resolve(result);
     }
-  });qconst promisify = foo => new Promise((resolve, reject) => {
-    foo((error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
-  });  
-});
+  })
 
 const TequilaType = new GraphQLObjectType({
   name: "Tequila",
