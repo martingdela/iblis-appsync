@@ -39,22 +39,22 @@ functions:
       - http:
           path: getTequila
           method: get
-  addHistorial:
-    handler: functions/tequilaHandler.addHistorial
-    description: API function to add a Tequila to the History of an user
-    memorySize: 1024
-    events:
-      - http:
-          path: addHistorial
-          method: post
-  getHistorial:
-    handler: functions/tequilaHandler.getHistorial
-    description: API function to retrieve the historial
-    memorySize: 1024
-    events:
-      - http:
-          path: getHistorial
-          method: get
+  # addHistorial:
+  #   handler: functions/tequilaHandler.addHistorial
+  #   description: API function to add a Tequila to the History of an user
+  #   memorySize: 1024
+  #   events:
+  #     - http:
+  #         path: addHistorial
+  #         method: post
+  # getHistorial:
+  #   handler: functions/tequilaHandler.getHistorial
+  #   description: API function to retrieve the historial
+  #   memorySize: 1024
+  #   events:
+  #     - http:
+  #         path: getHistorial
+  #         method: get
   getTequilera:
     handler: functions/tequileraHandler.getTequilera
     description: API function to get a Tequilera from DynamoDB
@@ -63,14 +63,14 @@ functions:
       - http:
           path: getTequilera
           method: get
-  getTequileras:
-    handler: functions/tequileraHandler.getTequileras
-    description: API function to get all Tequilera from DynamoDB
-    memorySize: 1024
-    events:
-      - http:
-          path: getTequileras
-          method: get
+  # getTequileras:
+  #   handler: functions/tequileraHandler.getTequileras
+  #   description: API function to get all Tequilera from DynamoDB
+  #   memorySize: 1024
+  #   events:
+  #     - http:
+  #         path: getTequileras
+  #         method: get
 
 resources:
   Resources:

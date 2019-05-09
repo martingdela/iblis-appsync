@@ -57,4 +57,19 @@ const getTequila = id => promisify(callback =>
     };
   });
 
-
+const schema = new GraphQLSchema({
+    query: new GraphQLObjectType({
+      fields: {
+        alumno: {
+          args: { id: { name: 'id', type: new GraphQLNonNull(GraphQLString) } },
+          type: TequileraType,
+          resolve: (parent, args) => getTequilera(args.id)
+        }
+      }
+    })
+  })
+  
+  module.exports.getTequila = (event, context, callback) => graphql(schema, event.queryStringParameters.query)
+    .then(
+      result => callback(null, { statusCode: 200, body: JSON.stringify(result)}),
+      err => callback(err))

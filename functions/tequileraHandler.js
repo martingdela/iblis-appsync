@@ -1,5 +1,3 @@
-'use strict';
-
 const {
   graphql,
   GraphQLSchema,
@@ -22,6 +20,7 @@ const promisify = foo => new Promise((resolve, reject) => {
       resolve(result);
     }
   });
+
 const TequileraType = new GraphQLObjectType({
   name: "Tequilera",
   fields: {
@@ -32,7 +31,7 @@ const TequileraType = new GraphQLObjectType({
   }
 })
 
-const getTequila = id => promisify(callback =>
+const getTequileraMethod = id => promisify(callback =>
   dynamoDb.get({
     TableName: process.env.DYNAMODB_TABLE,
     Key: { id },
@@ -40,15 +39,30 @@ const getTequila = id => promisify(callback =>
   .then((result) => {
     return {
       "id": result.Item.id,
-      "nombre": result.Item.nombre,
-      "tequilera": result.Item.tequilera,
-      "contenido": result.Item.contenido,
-      "fabrica":result.Item.fabrica,
-      "fechaCompra": result.Item.fechaCompra,
-      "fechaProduccion": result.Item.fechaProduccion,
-      "tipo":result.Item.tipo,
-      "username":result.Item.username,
+      "marca": result.Item.nombre,
+      "submarca": result.Item.tequilera,
+      "direccion": result.Item.contenido
     };
   });
 
 
+const schema = new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'RootQueryType', // an arbitrary name
+    fields: {
+      alumno: {
+        // we need to know the user's name to greet them
+        args: { id: { name: 'id', type: new GraphQLNonNull(GraphQLString) } },
+        type: TequileraType,
+        resolve: (parent, args) => getTequilera(args.id)
+      }
+    }
+  }),
+})
+
+module.exports.getTequilera = (event, context, callback) =>
+  graphql(schema, event.queryStringParameters.query)
+  .then(
+    result => callback(null, { statusCode: 200, body: JSON.stringify(result)}),
+    err => callback(err)
+  )
