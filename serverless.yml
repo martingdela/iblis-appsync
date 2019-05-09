@@ -20,6 +20,84 @@ service: iblis-appsync # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs8.10
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+        - dynamodb:Scan
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  getTequila:
+    handler: handler.getTequila
+    description: API function to get a Tequila from DynamoDB
+    memorySize: 1024
+    events:
+      - http:
+          path: getTequila
+          method: get
+  addHistorial:
+    handler: handler.addHistorial
+    description: API function to add a Tequila to the History of an user
+    memorySize: 1024
+    events:
+      - http:
+          path: addHistorial
+          method: post
+  getHistorial:
+    handler: handler.getHistorial
+    description: API function to retrieve the historial
+    memorySize: 1024
+    events:
+      - http:
+          path: getHistorial
+          method: get
+  getTequilera:
+    handler: handler.getTequilera
+    description: API function to get a Tequilera from DynamoDB
+    memorySize: 1024
+    events:
+      - http:
+          path: getTequilera
+          method: get
+  getTequileras:
+    handler: handler.getTequileras
+    description: API function to get all Tequilera from DynamoDB
+    memorySize: 1024
+    events:
+      - http:
+          path: getTequileras
+          method: get
+
+resources:
+  Resources:
+    Tequila:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        BillingMode: 'PAY_PER_REQUEST'
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+    Tequilera:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        BillingMode: 'PAY_PER_REQUEST'
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
+  
 
 # you can overwrite defaults here
 #  stage: dev
@@ -54,9 +132,6 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
-functions:
-  hello:
-    handler: handler.hello
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
