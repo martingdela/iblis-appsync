@@ -32,16 +32,6 @@ const promisify = foo => new Promise((resolve, reject) => {
   });  
 });
 
-const TequileraType = new GraphQLObjectType({
-  name: "Tequilera",
-  fields: {
-    id: {type: GraphQLString},
-    marca: {type: GraphQLString},
-    submarca: {type: GraphQLString},
-    direccion: {type: GraphQLString},
-  }
-})
-
 const TequilaType = new GraphQLObjectType({
   name: "Tequila",
   fields: {

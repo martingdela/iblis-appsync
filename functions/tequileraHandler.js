@@ -42,21 +42,6 @@ const TequileraType = new GraphQLObjectType({
   }
 })
 
-const TequilaType = new GraphQLObjectType({
-  name: "Tequila",
-  fields: {
-    id: {type: GraphQLString},
-    nombre: {type: GraphQLString},
-    tequilera: {type: GraphQLString},
-    contenido: {type: GraphQLString},
-    fabrica: {type: GraphQLString},
-    fechaCompra: {type: GraphQLString},
-    fechaProduccion: {type: GraphQLString},
-    tipo: {type: GraphQLString},
-    username: {type: GraphQLString},
-  }
-})
-
 const getTequila = id => promisify(callback =>
   dynamoDb.get({
     TableName: process.env.DYNAMODB_TABLE,

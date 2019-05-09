@@ -1,0 +1,30 @@
+{
+  "name": "iblis-appsync",
+  "version": "1.0.0",
+  "description": "Serverless Application for Web Development Class",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a01334390/iblis-appsync.git"
+  },
+  "keywords": [
+    "web",
+    "dev",
+    "app",
+    "serverless"
+  ],
+  "author": "Team 1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a01334390/iblis-appsync/issues"
+  },
+  "homepage": "https://github.com/a01334390/iblis-appsync#readme",
+  "dependencies": {
+    "aws-sdk": "^2.452.0",
+    "eslint-plugin-react": "^7.13.0",
+    "graphql": "^14.3.0"
+  }
+}
